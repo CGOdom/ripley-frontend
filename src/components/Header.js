@@ -3,14 +3,14 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    history.push('/login');
+    navigate('/login');
   };
 
   return (

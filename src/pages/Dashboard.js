@@ -1,19 +1,19 @@
 // src/pages/Dashboard.js
 
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import api from '../services/api';
 import QuestionList from '../components/QuestionList';
 
 const Dashboard = () => {
   const [questions, setQuestions] = useState([]);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      history.push('/login');
+      navigate('/login');
     } else {
       const fetchQuestions = async () => {
         try {
@@ -29,7 +29,7 @@ const Dashboard = () => {
       };
       fetchQuestions();
     }
-  }, [history]);
+  }, [navigate]);
 
   return (
     <Container>

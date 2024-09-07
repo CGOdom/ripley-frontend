@@ -1,7 +1,7 @@
 // src/App.js
 
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Login from './pages/Login';
@@ -13,13 +13,13 @@ const App = () => {
   return (
     <Router>
       <Header />
-      <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/questions/:id" component={QuestionDetails} />
-        <Route path="/" exact component={Dashboard} />
-      </Switch>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/questions/:id" element={<QuestionDetails />} />
+        <Route path="/" exact element={<Dashboard />} />
+      </Routes>
       <Footer />
     </Router>
   );
