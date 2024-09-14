@@ -1,23 +1,32 @@
 // src/pages/Login.js
 
-import React, { useState } from 'react';
-import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap'; 
+import React, { useState, useContext } from 'react';
+import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap';
 import api from '../services/api';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const { setIsAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setMessage('');
+
     try {
-      const response = await api.post('/users/login', { email, password });
-      const token = response.data.token;
-      localStorage.setItem('token', token); 
-      setMessage('Login successful!');
+      await api.post('/users/login', { email, password });
+      setIsAuthenticated(true);
+      navigate('/dashboard');
     } catch (error) {
-      setMessage('Error logging in: ' + error.response.data.message);
+      if (error.response && error.response.data) {
+        setMessage('Error logging in: ' + error.response.data.message);
+      } else {
+        setMessage('An error occurred during login.');
+      }
     }
   };
 
@@ -26,7 +35,7 @@ const Login = () => {
       <Row className="justify-content-md-center mt-5">
         <Col md={6}>
           <h2 className="text-center">Login</h2>
-          {message && <Alert variant="info">{message}</Alert>}
+          {message && <Alert variant="danger">{message}</Alert>}
           <Form onSubmit={handleLogin}>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
@@ -35,20 +44,22 @@ const Login = () => {
                 placeholder="Enter email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </Form.Group>
 
-            <Form.Group controlId="formBasicPassword">
+            <Form.Group controlId="formBasicPassword" className="mt-3">
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit" block>
+            <Button variant="primary" type="submit" className="mt-4" block="true">
               Login
             </Button>
           </Form>

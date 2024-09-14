@@ -1,35 +1,24 @@
 // src/pages/Dashboard.js
 
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import api from '../services/api';
 import QuestionList from '../components/QuestionList';
 
 const Dashboard = () => {
   const [questions, setQuestions] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/login');
-    } else {
-      const fetchQuestions = async () => {
-        try {
-          const response = await api.get('/questions', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setQuestions(response.data);
-        } catch (error) {
-          console.error('Error fetching questions:', error);
-        }
-      };
-      fetchQuestions();
-    }
-  }, [navigate]);
+    const fetchQuestions = async () => {
+      try {
+        const response = await api.get('/questions');
+        setQuestions(response.data);
+      } catch (error) {
+        console.error('Error fetching questions:', error);
+      }
+    };
+    fetchQuestions();
+  }, []);
 
   return (
     <Container>
@@ -37,7 +26,7 @@ const Dashboard = () => {
         <Col md={8}>
           <h2 className="text-center">Dashboard</h2>
           <QuestionList questions={questions} />
-          <Button variant="primary" className="mt-3" block>
+          <Button variant="primary" className="mt-3" block="true">
             Add New Question
           </Button>
         </Col>

@@ -1,4 +1,4 @@
-// src/components/QuestionList.js
+// src/components/QuestionList.jsx
 
 import React from 'react';
 import { ListGroup } from 'react-bootstrap';
