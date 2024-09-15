@@ -1,15 +1,15 @@
 // src/components/Header.jsx
 
 import React, { useContext } from 'react';
-import { Navbar, Nav, Button } from 'react-bootstrap';
+import { Navbar, Nav, Button, Spinner } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import api from '../services/api';
 
 const Header = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, setIsAuthenticated, user, loading } = useContext(AuthContext); // Destructure user
 
   const handleLogout = async () => {
     try {
@@ -23,13 +23,13 @@ const Header = () => {
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
-      <Navbar.Brand as={Link} to="/">
-        Alien Forum
-      </Navbar.Brand>
+      <LinkContainer to="/">
+        <Navbar.Brand>Alien Forum</Navbar.Brand>
+      </LinkContainer>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="ml-auto">
-          {!isAuthenticated ? (
+        <Nav className="ms-auto">
+          {!isAuthenticated && !loading && (
             <>
               <LinkContainer to="/login">
                 <Nav.Link>Login</Nav.Link>
@@ -38,15 +38,22 @@ const Header = () => {
                 <Nav.Link>Register</Nav.Link>
               </LinkContainer>
             </>
-          ) : (
+          )}
+          {isAuthenticated && !loading && (
             <>
               <LinkContainer to="/dashboard">
                 <Nav.Link>Dashboard</Nav.Link>
               </LinkContainer>
+              <Navbar.Text className="ms-3 me-3">
+                Signed in as: <strong>{user.username || user.email}</strong>
+              </Navbar.Text>
               <Button variant="outline-light" onClick={handleLogout}>
                 Logout
               </Button>
             </>
+          )}
+          {loading && (
+            <Spinner animation="border" variant="light" size="sm" className="ms-2" />
           )}
         </Nav>
       </Navbar.Collapse>
