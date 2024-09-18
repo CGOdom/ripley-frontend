@@ -9,8 +9,10 @@ const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
@@ -28,6 +30,7 @@ const Register = () => {
         throw new Error('Unexpected response format');
       }
     } catch (error) {
+      console.error('Registration error:', error); // Added console.error for debugging
       if (error.response && error.response.data) {
         setError('Error registering: ' + error.response.data.message);
       } else if (error.message) {
@@ -79,9 +82,11 @@ const Register = () => {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="mt-4" block>
-              Register
-            </Button>
+            <div className="d-grid gap-2 mt-4">
+              <Button variant="primary" type="submit">
+                Register
+              </Button>
+            </div>
           </Form>
         </Col>
       </Row>
