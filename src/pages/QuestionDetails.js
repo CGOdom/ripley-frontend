@@ -32,6 +32,12 @@ const QuestionDetails = () => {
                 <Card.Body>
                   <Card.Title>{question.title}</Card.Title>
                   <Card.Text>{question.body}</Card.Text>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    Category: {question.category_id.name}
+                  </Card.Subtitle>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    Asked by: {question.author_id.username}
+                  </Card.Subtitle>
                 </Card.Body>
               </Card>
               <AnswerList questionId={id} />
