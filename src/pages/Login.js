@@ -10,7 +10,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const { setIsAuthenticated } = useContext(AuthContext);
+  const { setIsAuthenticated, setUser } = useContext(AuthContext); // Include setUser
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -18,12 +18,19 @@ const Login = () => {
     setMessage('');
 
     try {
-      await api.post('/users/login', { email, password });
-      setIsAuthenticated(true);
-      navigate('/dashboard');
+      const response = await api.post('/users/login', { email, password });
+      if (response.data && response.data.user) {
+        setIsAuthenticated(true);
+        setUser(response.data.user); // Set user data
+        navigate('/dashboard');
+      } else {
+        throw new Error('Unexpected response from server');
+      }
     } catch (error) {
       if (error.response && error.response.data) {
         setMessage('Error logging in: ' + error.response.data.message);
+      } else if (error.message) {
+        setMessage('Error logging in: ' + error.message);
       } else {
         setMessage('An error occurred during login.');
       }
@@ -37,31 +44,9 @@ const Login = () => {
           <h2 className="text-center">Login</h2>
           {message && <Alert variant="danger">{message}</Alert>}
           <Form onSubmit={handleLogin}>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicPassword" className="mt-3">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </Form.Group>
-
-            <Button variant="primary" type="submit" className="mt-4" block="true">
-              Login
-            </Button>
+            {/* Email Field */}
+            {/* Password Field */}
+            {/* Submit Button */}
           </Form>
         </Col>
       </Row>

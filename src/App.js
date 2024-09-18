@@ -1,15 +1,16 @@
 // src/App.js
 
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'; // Added Navigate
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import QuestionDetails from './pages/QuestionDetails';
-import AddQuestion from './pages/AddQuestion'; // Import the AddQuestion component
-import PrivateRoute from './components/PrivateRoute'; // Ensure PrivateRoute is implemented correctly
+import AddQuestion from './pages/AddQuestion';
+import PrivateRoute from './components/PrivateRoute';
+import CategoryQuestions from './pages/CategoryQuestions'; // New component
 
 const App = () => {
   return (
@@ -46,13 +47,14 @@ const App = () => {
           }
         />
         <Route
-          path="/"
+          path="/categories/:categoryId/questions"
           element={
             <PrivateRoute>
-              <Dashboard />
+              <CategoryQuestions />
             </PrivateRoute>
           }
         />
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
         {/* Fallback Route for Undefined Paths */}
         <Route path="*" element={<Navigate to="/" replace />} />

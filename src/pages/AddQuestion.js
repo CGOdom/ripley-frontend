@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom';
 const AddQuestion = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  const [category_id, setCategoryId] = useState(''); // State for category selection
-  const [categories, setCategories] = useState([]); // State to hold categories
+  const [category_id, setCategoryId] = useState('');
+  const [categories, setCategories] = useState([]);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const AddQuestion = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await api.get('/categories'); // Assuming an endpoint to get categories
+        const response = await api.get('/categories');
         setCategories(response.data);
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -32,12 +32,11 @@ const AddQuestion = () => {
     setMessage('');
 
     try {
-      const response = await api.post('/questions', { title, body, category_id }); // Include category_id
+      const response = await api.post('/questions', { title, body, category_id });
 
       if (response && response.data) {
         setMessage('Question added successfully!');
-        // Optionally, navigate to the newly added question's detail page
-        navigate('/dashboard');
+        navigate(`/questions/${response.data.question._id}`);
       } else {
         throw new Error('Unexpected response format');
       }
@@ -100,7 +99,7 @@ const AddQuestion = () => {
               </Form.Control>
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="mt-4" block="true">
+            <Button variant="primary" type="submit" className="mt-4" block>
               Submit Question
             </Button>
           </Form>

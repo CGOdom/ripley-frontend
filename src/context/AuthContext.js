@@ -14,14 +14,24 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await api.get('/users/check-auth');
+        const response = await api.get('/users/me'); // Call /users/me endpoint
         console.log('Auth Check Response:', response.data); // Debugging log
-        setIsAuthenticated(response.data.isAuthenticated);
-        setUser(response.data.user); // Set user data if authenticated
+        if (response.data && response.data.user) {
+          setIsAuthenticated(true);
+          setUser(response.data.user); // Set user data if authenticated
+        } else {
+          setIsAuthenticated(false);
+          setUser(null);
+        }
       } catch (error) {
         console.error('Auth Check Error:', error); // Debugging log
-        setIsAuthenticated(false);
-        setUser(null);
+        if (error.response && error.response.status === 401) {
+          // Not authenticated
+          setIsAuthenticated(false);
+          setUser(null);
+        } else {
+          console.error('Unexpected error during auth check:', error);
+        }
       } finally {
         setLoading(false); // Set loading to false after auth check
       }
@@ -30,7 +40,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, loading }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, setIsAuthenticated, user, setUser, loading }}
+    >
       {children}
     </AuthContext.Provider>
   );
