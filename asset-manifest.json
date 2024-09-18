@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ripley-frontend/static/css/main.79d19d76.css",
+    "main.js": "/ripley-frontend/static/js/main.8998f3f1.js",
+    "index.html": "/ripley-frontend/index.html",
+    "main.79d19d76.css.map": "/ripley-frontend/static/css/main.79d19d76.css.map",
+    "main.8998f3f1.js.map": "/ripley-frontend/static/js/main.8998f3f1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.79d19d76.css",
+    "static/js/main.8998f3f1.js"
+  ]
+}
