@@ -9,7 +9,6 @@ const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -24,7 +23,6 @@ const Register = () => {
 
       if (response && response.data) {
         setMessage('Registration successful! You can now log in.');
-        // Optionally, redirect to login page
         navigate('/login');
       } else {
         throw new Error('Unexpected response format');
@@ -52,7 +50,7 @@ const Register = () => {
               <Form.Label>Username</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter username"
+                placeholder="Enter a username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
@@ -60,10 +58,10 @@ const Register = () => {
             </Form.Group>
 
             <Form.Group controlId="formBasicEmail" className="mt-3">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label>Email Address</Form.Label>
               <Form.Control
                 type="email"
-                placeholder="Enter email"
+                placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -74,14 +72,14 @@ const Register = () => {
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
-                placeholder="Password"
+                placeholder="Create a password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="mt-4" block="true">
+            <Button variant="primary" type="submit" className="mt-4" block>
               Register
             </Button>
           </Form>
