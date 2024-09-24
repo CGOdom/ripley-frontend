@@ -2,8 +2,9 @@
 
 import axios from 'axios';
 
-// Determine the base URL from environment variables or default to your backend's URL
-const BASE_URL = 'https://qq5t8z-3000.csb.app'; // Removed the trailing slash
+// Get the base URL from environment variables or default to your backend's URL
+const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001';
+
 
 // Create an Axios instance with predefined configurations
 const api = axios.create({
