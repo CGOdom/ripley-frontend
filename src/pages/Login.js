@@ -10,7 +10,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const { setIsAuthenticated, setUser } = useContext(AuthContext); // Include setUser
+  const { setIsAuthenticated, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -21,7 +21,7 @@ const Login = () => {
       const response = await api.post('/users/login', { email, password });
       if (response.data && response.data.user) {
         setIsAuthenticated(true);
-        setUser(response.data.user); // Set user data
+        setUser(response.data.user);
         navigate('/dashboard');
       } else {
         throw new Error('Unexpected response from server');
