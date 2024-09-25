@@ -2,7 +2,7 @@
 
 Access XenoHub front end here (deployed to GitHub Pages): https://cgodom.github.io/ripley-frontend
 
-To run front end locally in VS Code, switch branch to feature/local, then in terminal run "npm start".
+To run front end locally in VS Code, switch branch to "main", then in terminal run "npm start".
 
 Access back end console here (deployed to codesandbox.io): https://codesandbox.io/p/github/CGOdom/Ripley/main?workspaceId=c2269905-2c5b-46de-b0e1-2ae9f4256df7
 
