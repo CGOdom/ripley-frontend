@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "https://CGOdom.github.io/ripley-frontend/static/css/main.79d19d76.css",
-    "main.js": "https://CGOdom.github.io/ripley-frontend/static/js/main.9e5f84fa.js",
+    "main.js": "https://CGOdom.github.io/ripley-frontend/static/js/main.a41d8858.js",
     "index.html": "https://CGOdom.github.io/ripley-frontend/index.html",
     "main.79d19d76.css.map": "https://CGOdom.github.io/ripley-frontend/static/css/main.79d19d76.css.map",
-    "main.9e5f84fa.js.map": "https://CGOdom.github.io/ripley-frontend/static/js/main.9e5f84fa.js.map"
+    "main.a41d8858.js.map": "https://CGOdom.github.io/ripley-frontend/static/js/main.a41d8858.js.map"
   },
   "entrypoints": [
     "static/css/main.79d19d76.css",
-    "static/js/main.9e5f84fa.js"
+    "static/js/main.a41d8858.js"
   ]
 }
