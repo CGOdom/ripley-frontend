@@ -1,6 +1,5 @@
 {
   "name": "ripley-frontend",
-  "homepage": "https://CGOdom.github.io/ripley-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -20,6 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:prod": "env-cmd -f .env.production react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
@@ -44,6 +44,7 @@
     ]
   },
   "devDependencies": {
+    "env-cmd": "^10.1.0",
     "gh-pages": "^6.1.1"
   }
 }

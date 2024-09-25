@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 // Get the base URL from environment variables or default to your backend's URL
-const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001';
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 
 // Create an Axios instance with predefined configurations
