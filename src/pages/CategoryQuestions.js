@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import api from '../services/api';
 import QuestionList from '../components/QuestionList';
+import CategoryHeader from '../components/CategoryHeader';
 
 const CategoryQuestions = () => {
   const { categoryId } = useParams();
@@ -36,9 +37,12 @@ const CategoryQuestions = () => {
 
   return (
     <Container>
-      <Row className="justify-content-md-center mt-5">
+      {/* Category Heading with "Add Question" Button */}
+      <CategoryHeader categoryId={categoryId} categoryName={categoryName} />
+
+      {/* Questions List */}
+      <Row className="justify-content-md-center">
         <Col md={8}>
-          <h2 className="text-center">Category: {categoryName}</h2>
           <QuestionList questions={questions} />
         </Col>
       </Row>

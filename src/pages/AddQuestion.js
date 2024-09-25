@@ -1,9 +1,7 @@
-// src/pages/AddQuestion.js
-
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap';
 import api from '../services/api';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const AddQuestion = () => {
   const [title, setTitle] = useState('');
@@ -13,18 +11,27 @@ const AddQuestion = () => {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Extract categoryId and categoryName from the state passed via navigation
+  const { categoryId: preselectedCategoryId, categoryName } = location.state || {};
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await api.get('/categories');
         setCategories(response.data);
+
+        // If there's a preselected category, set it as the default value
+        if (preselectedCategoryId) {
+          setCategoryId(preselectedCategoryId);
+        }
       } catch (error) {
         console.error('Error fetching categories:', error);
       }
     };
     fetchCategories();
-  }, []);
+  }, [preselectedCategoryId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -90,7 +97,12 @@ const AddQuestion = () => {
                 onChange={(e) => setCategoryId(e.target.value)}
                 required
               >
-                <option value="">Select a category</option>
+                {/* If categoryId and categoryName are passed, use them as the default option */}
+                {preselectedCategoryId && categoryName ? (
+                  <option value={preselectedCategoryId}>{categoryName}</option>
+                ) : (
+                  <option value="">Select a category</option>
+                )}
                 {categories.map((category) => (
                   <option key={category._id} value={category._id}>
                     {category.name}
